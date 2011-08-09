@@ -1,4 +1,4 @@
-Name:           libzen0
+Name:           libzen
 Version:        0.4.20
 Release:        1%{?dist}.R
 Summary:        Shared library for libmediainfo and medianfo*
@@ -6,7 +6,7 @@ Summary:        Shared library for libmediainfo and medianfo*
 License:        BSD
 URL:            http://zenlib.sourceforge.net/
 Group:          System/Libraries
-Source0:        http://downloads.sourceforge.net/zenlib/libzen_%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
 Patch0:         libzen-compile.patch
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
@@ -73,9 +73,9 @@ done
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
-%post -n libzen0 -p /sbin/ldconfig
+%post -n libzen -p /sbin/ldconfig
 
-%postun -n libzen0 -p /sbin/ldconfig
+%postun -n libzen -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
@@ -94,5 +94,8 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Aug 09 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-2.R
+- Removed 0 from name
+
 * Thu Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-1.R
 - Initial release
