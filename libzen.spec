@@ -10,7 +10,10 @@ Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.b
 Patch0:         libzen-compile.patch
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
-BuildRequires:  gcc-c++   
+BuildRequires:  gcc-c++
+BuildRequires:  libtool
+BuildRequires:  automake
+BuildRequires:  autoconf   
 
 %description
 Shared library for libmediainfo and medianfo-*.
