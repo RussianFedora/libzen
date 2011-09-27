@@ -1,5 +1,5 @@
 Name:           libzen
-Version:        0.4.20
+Version:        0.4.22
 Release:        1%{?dist}.R
 Summary:        Shared library for libmediainfo and medianfo*
 
@@ -13,7 +13,7 @@ BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  automake
-BuildRequires:  autoconf   
+BuildRequires:  autoconf
 
 %description
 Shared library for libmediainfo and medianfo-*.
@@ -97,6 +97,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Sep 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.22-1.R
+- Update to 0.4.22
+
 * Tue Aug 09 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-2.R
 - Removed 0 from name
 
