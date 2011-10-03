@@ -5,9 +5,9 @@ Summary:        Shared library for libmediainfo and medianfo*
 
 License:        BSD
 URL:            http://zenlib.sourceforge.net/
-Group:          System/Libraries
+Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
-Patch0:         libzen-compile.patch
+#Patch0:         libzen-compile.patch
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -20,7 +20,7 @@ Shared library for libmediainfo and medianfo-*.
 
 %package        devel
 Summary:        Include files and mandatory libraries for development
-Group:          Development/Libraries/C and C++
+Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
 %description    devel
@@ -29,7 +29,6 @@ Include files and mandatory libraries for development.
 
 %prep
 %setup -q -n ZenLib
-%patch0 -p1
 dos2unix     *.txt Source/Doc/*.html
 %__chmod 644 *.txt Source/Doc/*.html
 
