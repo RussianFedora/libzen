@@ -1,5 +1,5 @@
 Name:           libzen
-Version:        0.4.22
+Version:        0.4.23
 Release:        1%{?dist}.R
 Summary:        Shared library for libmediainfo and medianfo*
 
@@ -7,7 +7,7 @@ License:        BSD
 URL:            http://zenlib.sourceforge.net/
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
-#Patch0:         libzen-compile.patch
+
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -96,6 +96,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1.R
+- Update to 0.4.23
+
 * Tue Sep 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.22-1.R
 - Update to 0.4.22
 
