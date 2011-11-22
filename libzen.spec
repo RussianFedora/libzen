@@ -1,7 +1,8 @@
 Name:           libzen
 Version:        0.4.23
-Release:        1%{?dist}.R
+Release:        2%{?dist}.R
 Summary:        Shared library for libmediainfo and medianfo*
+Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
 License:        BSD
 URL:            http://zenlib.sourceforge.net/
@@ -16,16 +17,22 @@ BuildRequires:  automake
 BuildRequires:  autoconf
 
 %description
-Shared library for libmediainfo and medianfo-*.
+Files shared library for libmediainfo and medianfo-*.
+
+%description -l ru
+Файлы разделяемой библиотеки для libmediainfo and medianfo-*.
 
 %package        devel
 Summary:        Include files and mandatory libraries for development
+Summary(ru):    Пакет с файлами для разработки %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 Include files and mandatory libraries for development.
 
+%description    devel -l ru
+Файлы для разработки %{name}.
 
 %prep
 %setup -q -n ZenLib
@@ -96,6 +103,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-2.R
+- Added description in russian language
+
 * Tue Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1.R
 - Update to 0.4.23
 
