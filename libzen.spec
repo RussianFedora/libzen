@@ -67,7 +67,7 @@ popd
 %__install -dm 755 %{buildroot}%{_includedir}/ZenLib
 %__install -m 644 Source/ZenLib/*.h \
     %{buildroot}%{_includedir}/ZenLib
-for i in Base64 HTTP_Client Format/Html Format/Http TinyXml; do
+for i in HTTP_Client Format/Html Format/Http; do
     %__install -dm 755 %{buildroot}%{_includedir}/ZenLib/$i
     %__install -m 644 Source/ZenLib/$i/*.h \
         %{buildroot}%{_includedir}/ZenLib/$i
