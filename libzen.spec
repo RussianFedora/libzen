@@ -1,6 +1,6 @@
 Name:           libzen
 Version:        0.4.24
-Release:        1%{?dist}.R
+Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
