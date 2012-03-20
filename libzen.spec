@@ -1,5 +1,5 @@
 Name:           libzen
-Version:        0.4.24
+Version:        0.4.25
 Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
@@ -103,6 +103,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Mar 20 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.25-1.R
+- Update to 0.4.25
+
 * Thu Feb 09 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.24-1.R
 - Update to 0.4.24
 
