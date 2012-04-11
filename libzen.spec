@@ -103,7 +103,7 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Wed Mar 20 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-1.R
+* Wed Apr 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-1.R
 - Update to 0.4.26
 
 * Tue Mar 20 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.25-1.R
