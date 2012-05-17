@@ -1,10 +1,10 @@
 Name:           libzen
 Version:        0.4.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
-License:        BSD
+License:        LGPLv3
 URL:            http://zenlib.sourceforge.net/
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
@@ -79,6 +79,9 @@ done
 %__install -m 644 Project/GNU/Library/libzen.pc \
     %{buildroot}%{_libdir}/pkgconfig
 
+find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+
 %clean
 [ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
@@ -97,12 +100,14 @@ done
 %doc Doc/*
 %dir %{_includedir}/ZenLib
 %{_includedir}/ZenLib/*
-%{_libdir}/libzen.a
-%{_libdir}/libzen.la
 %{_libdir}/libzen.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu May 17 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-2.R
+- Corrected license
+- removed *.a and *.la files
+
 * Wed Apr 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-1.R
 - Update to 0.4.26
 
