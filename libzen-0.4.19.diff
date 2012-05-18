@@ -1,0 +1,39 @@
+diff -Naur ZenLib-0.4.19.orig/Project/GNU/Library/libzen-config.in ZenLib/Project/GNU/Library/libzen-config.in
+--- ZenLib-0.4.19.orig/Project/GNU/Library/libzen-config.in	2010-03-03 15:54:08.000000000 +0100
++++ ZenLib/Project/GNU/Library/libzen-config.in	2011-04-15 11:15:05.033341487 +0200
+@@ -1,17 +1,18 @@
++#!/bin/sh
+ if test "$1" = "CXXFLAGS"; then
+-echo @ZenLib_CXXFLAGS@
++/usr/bin/pkg-config --cflags libzen
+ fi
+ if test "$1" = "LIBS"; then
+-echo @ZenLib_LIBS@
++/usr/bin/pkg-config --libs libzen
+ fi
+ if test "$1" = "LIBS_Static"; then
+-echo @ZenLib_LIBS_Static@
++/usr/bin/pkg-config --variable=Libs_Static libzen
+ fi
+ if test "$1" = "Unicode"; then
+-echo @ZenLib_Unicode@
++/usr/bin/pkg-config --variable=Unicode libzen
+ fi
+ if test "$1" = "WstringMissing"; then
+-echo @ZenLib_WstringMissing@
++/usr/bin/pkg-config --variable=WstringMissing libzen
+ fi
+ if test "$1" = "Exists"; then
+ echo yes
+diff -Naur ZenLib-0.4.19.orig/Source/ZenLib/Thread.h ZenLib-0.4.19/Source/ZenLib/Thread.h
+--- ZenLib-0.4.19.orig/Source/ZenLib/Thread.h	2011-01-10 12:12:47.000000000 +0100
++++ ZenLib-0.4.19/Source/ZenLib/Thread.h	2011-04-15 15:08:12.952121678 +0200
+@@ -80,7 +80,7 @@
+ protected :
+ 
+     //Communicating
+-    void    Sleep(size_t Millisecond);
++    void    Sleep(std::size_t Millisecond);
+     void    Yield();
+ 
+ private :
