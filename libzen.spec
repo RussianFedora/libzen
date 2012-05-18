@@ -5,7 +5,7 @@ Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
 License:        LGPLv3
-URL:            http://zenlib.sourceforge.net/
+URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
 Patch0:         %{name}-0.4.19.diff
