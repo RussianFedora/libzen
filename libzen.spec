@@ -27,7 +27,7 @@ Files shared library for libmediainfo and medianfo-*.
 Summary:        Include files and mandatory libraries for development
 Summary(ru):    Пакет с файлами для разработки %{name}
 Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 Include files and mandatory libraries for development.
