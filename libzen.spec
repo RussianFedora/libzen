@@ -1,6 +1,6 @@
 Name:           libzen
 Version:        0.4.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
@@ -8,6 +8,7 @@ License:        LGPLv3
 URL:            http://zenlib.sourceforge.net/
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
+Patch0:         %{name}-0.4.19.diff
 
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
@@ -39,6 +40,18 @@ Include files and mandatory libraries for development.
 dos2unix     *.txt Source/Doc/*.html
 %__chmod 644 *.txt Source/Doc/*.html
 
+%patch0 -p1
+
+# Fix up Makefile.am
+cat << EOF >> Project/GNU/Library/Makefile.am
+
+bin_SCRIPTS = libzen-config
+
+pkgconfigdir = \$(libdir)/pkgconfig
+pkgconfig_DATA = libzen.pc
+
+EOF
+
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
 export CPPFLAGS="$RPM_OPT_FLAGS"
@@ -52,7 +65,7 @@ cp Source/Doc/*.html ./
 pushd Project/GNU/Library
     %__chmod +x autogen
     ./autogen
-    %configure --enable-shared
+    %configure --disable-static --enable-shared
 
     %__make clean
     %__make %{?jobs:-j%{jobs}}
@@ -98,12 +111,16 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %defattr(-,root,root,-)
 %doc Documentation.html
 %doc Doc/*
+%{_bindir}/libzen-config
 %dir %{_includedir}/ZenLib
 %{_includedir}/ZenLib/*
 %{_libdir}/libzen.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri May 18 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-3.R
+- Added libzen-config
+
 * Thu May 17 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-2.R
 - Corrected license
 - removed *.a and *.la files
