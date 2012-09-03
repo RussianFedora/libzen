@@ -1,6 +1,6 @@
 Name:           libzen
-Version:        0.4.26
-Release:        3%{?dist}
+Version:        0.4.28
+Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
@@ -95,20 +95,16 @@ done
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
-%clean
-[ -d "%{buildroot}" -a "%{buildroot}" != "" ] && %__rm -rf "%{buildroot}"
 
 %post -n libzen -p /sbin/ldconfig
 
 %postun -n libzen -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %doc History.txt License.txt ReadMe.txt
 %{_libdir}/libzen.so.*
 
 %files    devel
-%defattr(-,root,root,-)
 %doc Documentation.html
 %doc Doc/*
 %{_bindir}/libzen-config
@@ -118,6 +114,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Sep 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-1.R
+- Update to 0.4.28
+
 * Fri May 18 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-3.R
 - Added libzen-config
 
