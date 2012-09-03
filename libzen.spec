@@ -8,7 +8,6 @@ License:        LGPLv3
 URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
-Patch0:         %{name}-0.4.19.diff
 
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
@@ -39,8 +38,6 @@ Include files and mandatory libraries for development.
 %setup -q -n ZenLib
 dos2unix     *.txt Source/Doc/*.html
 %__chmod 644 *.txt Source/Doc/*.html
-
-%patch0 -p1
 
 # Fix up Makefile.am
 cat << EOF >> Project/GNU/Library/Makefile.am
@@ -116,6 +113,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %changelog
 * Mon Sep 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-1.R
 - Update to 0.4.28
+- Drop patch
 
 * Fri May 18 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-3.R
 - Added libzen-config
