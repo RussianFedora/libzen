@@ -1,10 +1,10 @@
 Name:           libzen
 Version:        0.4.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
-License:        LGPLv3
+License:        zlib/libpng License
 URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
@@ -42,10 +42,10 @@ dos2unix     *.txt Source/Doc/*.html
 # Fix up Makefile.am
 cat << EOF >> Project/GNU/Library/Makefile.am
 
-bin_SCRIPTS = libzen-config
+bin_SCRIPTS = %{name}-config
 
 pkgconfigdir = \$(libdir)/pkgconfig
-pkgconfig_DATA = libzen.pc
+pkgconfig_DATA = %{name}.pc
 
 EOF
 
@@ -84,33 +84,36 @@ for i in HTTP_Client Format/Html Format/Http; do
 done
 
 %__sed -i -e 's|Version: |Version: %{version}|g' \
-    Project/GNU/Library/libzen.pc
+    Project/GNU/Library/%{name}.pc
 %__install -dm 755 %{buildroot}%{_libdir}/pkgconfig
-%__install -m 644 Project/GNU/Library/libzen.pc \
+%__install -m 644 Project/GNU/Library/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig
 
-find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.a' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
-%post -n libzen -p /sbin/ldconfig
+%post -p /sbin/ldconfig
 
-%postun -n libzen -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %doc History.txt License.txt ReadMe.txt
-%{_libdir}/libzen.so.*
+%{_libdir}/%{name}.so.*
 
 %files    devel
 %doc Documentation.html
 %doc Doc/*
-%{_bindir}/libzen-config
+%{_bindir}/%{name}-config
 %dir %{_includedir}/ZenLib
 %{_includedir}/ZenLib/*
-%{_libdir}/libzen.so
+%{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-2.R
+- Clean spec
+
 * Mon Sep 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-1.R
 - Update to 0.4.28
 - Drop patch
