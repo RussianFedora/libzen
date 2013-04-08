@@ -39,15 +39,6 @@ Include files and mandatory libraries for development.
 dos2unix     *.txt Source/Doc/*.html
 %__chmod 644 *.txt Source/Doc/*.html
 
-# Fix up Makefile.am
-cat << EOF >> Project/GNU/Library/Makefile.am
-
-bin_SCRIPTS = %{name}-config
-
-pkgconfigdir = \$(libdir)/pkgconfig
-pkgconfig_DATA = %{name}.pc
-
-EOF
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
