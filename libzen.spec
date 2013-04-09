@@ -1,6 +1,6 @@
 Name:           libzen
 Version:        0.4.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
@@ -41,9 +41,9 @@ dos2unix     *.txt Source/Doc/*.html
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
-export CPPFLAGS="$RPM_OPT_FLAGS"
-export CXXFLAGS="$RPM_OPT_FLAGS"
+export CFLAGS="%{optflags}"
+export CPPFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags}"
 
 pushd Source/Doc/
     doxygen Doxyfile
@@ -51,7 +51,6 @@ popd
 cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
-    %__chmod +x autogen
     ./autogen
     %configure --disable-static --enable-shared
 
@@ -102,6 +101,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-3.R
+- Spec prepared for review
+
 * Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-2.R
 - Clean spec
 
