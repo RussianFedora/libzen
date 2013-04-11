@@ -49,7 +49,6 @@ pushd Source/Doc/
     doxygen -u Doxyfile
     doxygen Doxyfile
 popd
-asdfasdf
 cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
