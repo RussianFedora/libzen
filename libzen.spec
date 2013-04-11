@@ -1,10 +1,10 @@
 Name:           libzen
 Version:        0.4.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
-License:        zlib/libpng License
+License:        zlib/libpng
 URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
@@ -36,8 +36,8 @@ Include files and mandatory libraries for development.
 
 %prep
 %setup -q -n ZenLib
-dos2unix     *.txt Source/Doc/*.html
-%__chmod 644 *.txt Source/Doc/*.html
+dos2unix *.txt Source/Doc/Documentation.html
+chmod 644 *.txt Source/Doc/Documentation.html
 
 
 %build
@@ -46,37 +46,39 @@ export CPPFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
 
 pushd Source/Doc/
+    doxygen -u Doxyfile
     doxygen Doxyfile
 popd
+asdfasdf
 cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
     ./autogen
     %configure --disable-static --enable-shared
 
-    %__make clean
-    %__make %{?jobs:-j%{jobs}}
+    make clean
+    make %{?jobs:-j%{jobs}}
 popd
 
 %install
 pushd Project/GNU/Library
-    %__make install-strip DESTDIR=%{buildroot}
+    make install-strip DESTDIR=%{buildroot}
 popd
 
 # Zenlib headers and ZenLib-config
-%__install -dm 755 %{buildroot}%{_includedir}/ZenLib
-%__install -m 644 Source/ZenLib/*.h \
+install -dm 755 %{buildroot}%{_includedir}/ZenLib
+install -m 644 Source/ZenLib/*.h \
     %{buildroot}%{_includedir}/ZenLib
 for i in HTTP_Client Format/Html Format/Http; do
-    %__install -dm 755 %{buildroot}%{_includedir}/ZenLib/$i
-    %__install -m 644 Source/ZenLib/$i/*.h \
+    install -dm 755 %{buildroot}%{_includedir}/ZenLib/$i
+    install -m 644 Source/ZenLib/$i/*.h \
         %{buildroot}%{_includedir}/ZenLib/$i
 done
 
-%__sed -i -e 's|Version: |Version: %{version}|g' \
+sed -i -e 's|Version: |Version: %{version}|g' \
     Project/GNU/Library/%{name}.pc
-%__install -dm 755 %{buildroot}%{_libdir}/pkgconfig
-%__install -m 644 Project/GNU/Library/%{name}.pc \
+install -dm 755 %{buildroot}%{_libdir}/pkgconfig
+install -m 644 Project/GNU/Library/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig
 
 find %{buildroot} -name '*.a' -exec rm -f {} ';'
@@ -101,43 +103,46 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-3.R
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-4
+- Spec prepared for review again
+
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-3
 - Spec prepared for review
 
-* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-2.R
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-2
 - Clean spec
 
-* Mon Sep 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-1.R
+* Mon Sep 03 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-1
 - Update to 0.4.28
 - Drop patch
 
-* Fri May 18 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-3.R
+* Fri May 18 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-3
 - Added libzen-config
 
-* Thu May 17 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-2.R
+* Thu May 17 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-2
 - Corrected license
 - removed *.a and *.la files
 
-* Wed Apr 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-1.R
+* Wed Apr 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.26-1
 - Update to 0.4.26
 
-* Tue Mar 20 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.25-1.R
+* Tue Mar 20 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.25-1
 - Update to 0.4.25
 
-* Thu Feb 09 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.24-1.R
+* Thu Feb 09 2012 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.24-1
 - Update to 0.4.24
 
-* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-2.R
+* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-2
 - Added description in russian language
 
-* Tue Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1.R
+* Tue Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1
 - Update to 0.4.23
 
-* Tue Sep 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.22-1.R
+* Tue Sep 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.22-1
 - Update to 0.4.22
 
-* Tue Aug 09 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-2.R
+* Tue Aug 09 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-2
 - Removed 0 from name
 
-* Thu Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-1.R
+* Thu Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-1
 - Initial release
