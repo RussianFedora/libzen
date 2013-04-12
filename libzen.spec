@@ -1,10 +1,10 @@
 Name:           libzen
 Version:        0.4.28
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
-License:        zlib/libpng
+License:        zlib
 URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
@@ -36,6 +36,7 @@ Include files and mandatory libraries for development.
 
 %prep
 %setup -q -n ZenLib
+#Correct documentation encoding and permissions
 dos2unix *.txt Source/Doc/Documentation.html
 chmod 644 *.txt Source/Doc/Documentation.html
 
@@ -45,6 +46,7 @@ export CFLAGS="%{optflags}"
 export CPPFLAGS="%{optflags}"
 export CXXFLAGS="%{optflags}"
 
+#Make documentation
 pushd Source/Doc/
     doxygen -u Doxyfile
     doxygen Doxyfile
@@ -56,7 +58,7 @@ pushd Project/GNU/Library
     %configure --disable-static --enable-shared
 
     make clean
-    make %{?jobs:-j%{jobs}}
+    make %{?_smp_mflags}
 popd
 
 %install
@@ -64,7 +66,7 @@ pushd Project/GNU/Library
     make install-strip DESTDIR=%{buildroot}
 popd
 
-# Zenlib headers and ZenLib-config
+#Install headers and ZenLib-config
 install -dm 755 %{buildroot}%{_includedir}/ZenLib
 install -m 644 Source/ZenLib/*.h \
     %{buildroot}%{_includedir}/ZenLib
@@ -80,6 +82,7 @@ install -dm 755 %{buildroot}%{_libdir}/pkgconfig
 install -m 644 Project/GNU/Library/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig
 
+#remove unneeded static files
 find %{buildroot} -name '*.a' -exec rm -f {} ';'
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
@@ -102,6 +105,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-5
+- Corrected license
+- Added comments
+- Corrected make on smp
+
 * Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-4
 - Spec prepared for review again
 
