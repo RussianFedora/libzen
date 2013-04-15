@@ -53,7 +53,10 @@ chmod 644 *.txt Source/Doc/Documentation.html
 chmod 644 Source/ZenLib/*.h Source/ZenLib/*.cpp \
     Source/ZenLib/Format/Html/*.h Source/ZenLib/Format/Html/*.cpp \
     Source/ZenLib/Format/Http/*.h Source/ZenLib/Format/Http/*.cpp
-
+    
+pushd Project/GNU/Library
+    ./autogen
+popd
 
 %build
 export CFLAGS="%{optflags}"
@@ -68,12 +71,13 @@ popd
 cp Source/Doc/*.html ./
 
 pushd Project/GNU/Library
-    ./autogen
     %configure --disable-static --enable-shared
 
     make clean
     make %{?_smp_mflags}
 popd
+#Adding shebang
+sed -i "1i #!/bin/bash" Project/GNU/Library/libzen-config
 
 %install
 pushd Project/GNU/Library
@@ -96,10 +100,6 @@ install -dm 755 %{buildroot}%{_libdir}/pkgconfig
 install -m 644 Project/GNU/Library/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig
 
-#remove unneeded static files
-find %{buildroot} -name '*.a' -exec rm -f {} ';'
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
 
 %post -p /sbin/ldconfig
 
@@ -117,7 +117,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_bindir}/%{name}-config
 %{_includedir}/ZenLib
 %{_libdir}/%{name}.so
+%{_libdir}/%{name}.la
 %{_libdir}/pkgconfig/*.pc
+
 
 %changelog
 * Mon Apr 15 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-6
