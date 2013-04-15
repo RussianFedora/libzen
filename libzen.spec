@@ -1,5 +1,3 @@
-%global debug_package %{nil}
-
 Name:           libzen
 Version:        0.4.28
 Release:        6%{?dist}
@@ -50,8 +48,12 @@ Include files and mandatory libraries for development.
 %prep
 %setup -q -n ZenLib
 #Correct documentation encoding and permissions
-dos2unix *.txt Source/Doc/Documentation.html
+dos2unix *.txt
 chmod 644 *.txt Source/Doc/Documentation.html
+
+chmod 644 Source/ZenLib/*.h Source/ZenLib/*.cpp \
+    Source/ZenLib/Format/Html/*.h Source/ZenLib/Format/Html/*.cpp \
+    Source/ZenLib/Format/Http/*.h Source/ZenLib/Format/Http/*.cpp
 
 
 %build
@@ -76,7 +78,7 @@ popd
 
 %install
 pushd Project/GNU/Library
-    make install-strip DESTDIR=%{buildroot}
+    make install DESTDIR=%{buildroot}
 popd
 
 #Install headers and ZenLib-config
@@ -110,12 +112,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %files doc
 %doc Documentation.html
-%doc Doc/*
+%doc Doc
 
 %files devel
 %{_bindir}/%{name}-config
-%dir %{_includedir}/ZenLib
-%{_includedir}/ZenLib/*
+%{_includedir}/ZenLib
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/*.pc
 
@@ -123,7 +124,6 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 * Mon Apr 15 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-6
 - Added doc subpackage
 - Removed gcc-c++ from BR
-- Disable debuginfo package generation
 
 * Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-5
 - Corrected license
