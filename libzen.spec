@@ -1,6 +1,8 @@
+%global debug_package %{nil}
+
 Name:           libzen
 Version:        0.4.28
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
@@ -11,7 +13,6 @@ Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.b
 
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
-BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -21,6 +22,18 @@ Files shared library for libmediainfo and medianfo-*.
 
 %description -l ru
 Файлы разделяемой библиотеки для libmediainfo and medianfo-*.
+
+%package        doc
+Summary:        Documentation for %{name}
+Summary(ru):    Пакет с документацией для %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildArch:      noarch
+
+%description    doc
+Documentation files.
+
+%description    doc -l ru
+Файлы документации %{name}.
 
 %package        devel
 Summary:        Include files and mandatory libraries for development
@@ -95,9 +108,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %doc History.txt License.txt ReadMe.txt
 %{_libdir}/%{name}.so.*
 
-%files    devel
+%files doc
 %doc Documentation.html
 %doc Doc/*
+
+%files devel
 %{_bindir}/%{name}-config
 %dir %{_includedir}/ZenLib
 %{_includedir}/ZenLib/*
@@ -105,6 +120,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr 15 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-6
+- Added doc subpackage
+- Removed gcc-c++ from BR
+- Disable debuginfo package generation
+
 * Mon Apr 08 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-5
 - Corrected license
 - Added comments
