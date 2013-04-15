@@ -23,7 +23,7 @@ Files shared library for libmediainfo and medianfo-*.
 %package        doc
 Summary:        Documentation for %{name}
 Summary(ru):    Пакет с документацией для %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
 %description    doc
