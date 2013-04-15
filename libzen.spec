@@ -9,7 +9,6 @@ URL:            http://sourceforge.net/projects/zenlib
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/zenlib/%{name}_%{version}.tar.bz2
 
-BuildRequires:  dos2unix
 BuildRequires:  doxygen
 BuildRequires:  libtool
 BuildRequires:  automake
@@ -48,7 +47,7 @@ Include files and mandatory libraries for development.
 %prep
 %setup -q -n ZenLib
 #Correct documentation encoding and permissions
-dos2unix *.txt
+sed -i 's/.$//' *.txt
 chmod 644 *.txt Source/Doc/Documentation.html
 
 chmod 644 Source/ZenLib/*.h Source/ZenLib/*.cpp \
