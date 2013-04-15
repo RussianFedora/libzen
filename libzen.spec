@@ -53,9 +53,9 @@ chmod 644 *.txt Source/Doc/Documentation.html
 chmod 644 Source/ZenLib/*.h Source/ZenLib/*.cpp \
     Source/ZenLib/Format/Html/*.h Source/ZenLib/Format/Html/*.cpp \
     Source/ZenLib/Format/Http/*.h Source/ZenLib/Format/Http/*.cpp
-    
+
 pushd Project/GNU/Library
-    ./autogen
+    autoreconf -i
 popd
 
 %build
