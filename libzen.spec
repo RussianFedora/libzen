@@ -1,6 +1,6 @@
 Name:           libzen
-Version:        0.4.28
-Release:        7%{?dist}
+Version:        0.4.29
+Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
 
@@ -122,6 +122,9 @@ install -m 644 Project/GNU/Library/%{name}.pc \
 
 
 %changelog
+* Fri May 31 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.29-1.R
+- update to 0.4.29
+
 * Tue Apr 23 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-7
 - Corrected shebang
 - Removed dos2unix from BR
