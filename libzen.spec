@@ -1,8 +1,8 @@
 Name:           libzen
 Version:        0.4.29
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
-Summary(ru):    Разделяемая библиотека для libmediainfo and medianfo*
+Summary(ru):    Разделяемая библиотека для libmediainfo и medianfo*
 
 License:        zlib
 URL:            http://sourceforge.net/projects/zenlib
@@ -18,7 +18,7 @@ BuildRequires:  autoconf
 Files shared library for libmediainfo and medianfo-*.
 
 %description -l ru
-Файлы разделяемой библиотеки для libmediainfo and medianfo-*.
+Файлы разделяемой библиотеки для libmediainfo и medianfo-*.
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -59,10 +59,6 @@ pushd Project/GNU/Library
 popd
 
 %build
-export CFLAGS="%{optflags}"
-export CPPFLAGS="%{optflags}"
-export CXXFLAGS="%{optflags}"
-
 #Make documentation
 pushd Source/Doc/
     doxygen -u Doxyfile
@@ -76,29 +72,29 @@ pushd Project/GNU/Library
     make clean
     make %{?_smp_mflags}
 popd
-#Adding shebang
-sed -i "1i #!/bin/bash" Project/GNU/Library/libzen-config
 
 %install
 pushd Project/GNU/Library
-    make install DESTDIR=%{buildroot}
+    %make_install
 popd
 
 #Install headers and ZenLib-config
-install -dm 755 %{buildroot}%{_includedir}/ZenLib
-install -m 644 Source/ZenLib/*.h \
+install -p -dm 755 %{buildroot}%{_includedir}/ZenLib
+install -p -m 644 Source/ZenLib/*.h \
     %{buildroot}%{_includedir}/ZenLib
 for i in HTTP_Client Format/Html Format/Http; do
-    install -dm 755 %{buildroot}%{_includedir}/ZenLib/$i
-    install -m 644 Source/ZenLib/$i/*.h \
+    install -p -dm 755 %{buildroot}%{_includedir}/ZenLib/$i
+    install -p -m 644 Source/ZenLib/$i/*.h \
         %{buildroot}%{_includedir}/ZenLib/$i
 done
 
 sed -i -e 's|Version: |Version: %{version}|g' \
     Project/GNU/Library/%{name}.pc
-install -dm 755 %{buildroot}%{_libdir}/pkgconfig
-install -m 644 Project/GNU/Library/%{name}.pc \
+install -p -dm 755 %{buildroot}%{_libdir}/pkgconfig
+install -p -m 644 Project/GNU/Library/%{name}.pc \
     %{buildroot}%{_libdir}/pkgconfig
+
+rm %{buildroot}%{_libdir}/%{name}.la
 
 
 %post -p /sbin/ldconfig
@@ -117,12 +113,15 @@ install -m 644 Project/GNU/Library/%{name}.pc \
 %{_bindir}/%{name}-config
 %{_includedir}/ZenLib
 %{_libdir}/%{name}.so
-%{_libdir}/%{name}.la
 %{_libdir}/pkgconfig/*.pc
 
 
 %changelog
-* Fri May 31 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.29-1.R
+* Fri Aug 02 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.29-2
+- Corrected build flags
+- Use more macros
+
+* Fri May 31 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.29-1
 - update to 0.4.29
 
 * Tue Apr 23 2013 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.28-7
@@ -172,7 +171,7 @@ install -m 644 Project/GNU/Library/%{name}.pc \
 * Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-2
 - Added description in russian language
 
-* Tue Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1
+* Mon Nov 14 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.23-1
 - Update to 0.4.23
 
 * Tue Sep 27 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.22-1
@@ -181,5 +180,5 @@ install -m 644 Project/GNU/Library/%{name}.pc \
 * Tue Aug 09 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-2
 - Removed 0 from name
 
-* Thu Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-1
+* Fri Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 0.4.20-1
 - Initial release
